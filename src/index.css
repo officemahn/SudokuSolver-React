@@ -39,12 +39,21 @@ header ul li {
   justify-content: space-between;
 }
 
+
+#main .main-text {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
 #main .main-text .title {
   font-size: 50px;
   font-weight: 700;
   text-align: left;
   color: white;
 }
+
+
 
 #main .subtitle {
   font-size: 30px;
