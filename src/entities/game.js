@@ -5,19 +5,27 @@ export class Game{
         this.score = score
     }
 
+    set level(value){
+        this._level = value
+    }
+
+    set score(value){
+        this._score = value
+    }
+
     get level(){
-        return this.level
+        return this._level
     }
 
     get score(){
-        return this.score
+        return this._score
     }
 
     goToNextLevel(){
-        this.level ++
+        this._level ++
     }
 
     updateScore(merit){
-        this.score = this.score + merit
+        this._score = this._score + merit
     }
 }
