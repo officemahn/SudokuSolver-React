@@ -53,7 +53,7 @@ const boards =
 let game = new Game(0, initialLevel)
 
 function loadBoard(){
-    return board[game.level]
+    return boards[game.level]
 }
 
 function getHint(row, col){
