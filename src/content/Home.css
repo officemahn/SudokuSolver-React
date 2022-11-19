@@ -1,0 +1,116 @@
+*{
+  box-sizing: border-box;
+}
+body{
+  margin: 0;
+}
+
+.hero{
+  margin-top: 200px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 0 1rem;
+}
+
+
+.hero .main-text {
+  display:inline-block;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.hero .main-text .title {
+  font-size: 50px;
+  font-weight: 700;
+  text-align: left;
+  color: white;
+}
+
+
+
+.hero .subtitle {
+  font-size: 30px;
+  font-weight: 700;
+  text-align: left;
+  color: white;
+}
+
+.hero input {
+  justify-content: center;
+  padding: 20px 80px;
+  box-shadow: 3px 3px 5px grey;
+  font-size: 14px;
+  font-weight: 600;
+  width: 500px;
+  text-align: center;
+  display: block;
+}
+
+button {
+  margin-top: 20px;
+  text-decoration: none;
+  cursor: pointer;
+  border: 3px solid red;
+  color: transparent;
+  padding: 30px 60px;
+  font-size: 28px;
+  font-family: sans-serif;
+  letter-spacing: 5px;
+  transition: all 0.5s;
+  position: relative;
+}
+
+button:before {
+  content: "GAME ON";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: red;
+  background: rgb(34, 34, 34);
+  font-size: 28px;
+  top: 0;
+  left: 100%;
+  font-family: sans-serif;
+  letter-spacing: 5px;
+  transition: all 1s;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  transform: scale(0) rotatey(0);
+  opacity: 0;
+}
+
+button:hover:before {
+  transform: scale(1) rotatey(360deg);
+  left: 0;
+  opacity: 1;
+}
+
+button:after {
+  content: "GAME ON";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: red;
+  background: rgb(34, 34, 34);
+  font-size: 28px;
+  top: 0;
+  left: 0;
+  font-family: sans-serif;
+  letter-spacing: 5px;
+  transition: all 1s;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  transform: scale(1) rotatey(0);
+  opacity: 1;
+}
+
+button:hover:after {
+  transform: scale(0) rotatey(360deg);
+  left: -100%;
+  opacity: 0;
+}
