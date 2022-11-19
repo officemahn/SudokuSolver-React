@@ -1,6 +1,4 @@
 import React, { Component, useState } from 'react';
-import {loadBoard} from "../services/boardService";
-
 class Cell extends Component {
 
     constructor(props){
@@ -11,14 +9,12 @@ class Cell extends Component {
         value: null, 
         correctValue: null 
     }
-
-    board = loadBoard(this.props.level)
-
+    
     componentDidMount(){
     }
-    
+
     render() { 
-        return (<td onClick={() => console.log("heyy! - will highlight")}>{this.board[this.props.row_index][this.props.col_index]}</td>);
+        return (<td onClick={ () => this.props.onCellClick(this.props.row, this.props.col)}>{this.props.board[this.props.row][this.props.col]}</td>);
     }
 }
  

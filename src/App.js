@@ -6,7 +6,7 @@ import { Game } from './entities/game';
 
 function App() {
 
-  let game = new Game(1, 0);
+  let game = new Game(1, 2);
   const [level, setLevel] = useState(game._level);
 
   return (
