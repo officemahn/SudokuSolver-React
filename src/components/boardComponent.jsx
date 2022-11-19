@@ -9,10 +9,12 @@ class Board extends Component {
     }
 
     componentDidMount(){
+    }
+
+    componentDidUpdate(){
         console.log("Did i rerender?")
         console.log(this.state.board)
     }
-
     handleCellClick = (cellRow, cellCol) => {
 
         console.log(cellRow, cellCol)
@@ -29,9 +31,10 @@ class Board extends Component {
             return;
         }
 
-        const updated_board = [...this.state.board];
+        const updated_board = this.state.board.slice();
         updated_board[cellRow][cellCol] = value;
         this.setState({board: updated_board})
+        console.log(this.state.board)
     }
 
     getCell(row){
