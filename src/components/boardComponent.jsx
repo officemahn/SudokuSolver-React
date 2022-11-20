@@ -3,30 +3,37 @@ import {loadBoard} from "../services/boardService"
 import Cell from './cellComponent';
 class Board extends Component {
     
+    constructor(props){
+        super(props);
+    }
+
     state = {
         board: [...loadBoard(this.props.level)],
+        hints: [],
         highlightedCell: {row: undefined, col: undefined}
     }
 
-    componentDidMount(){
-    }
-
-    componentDidUpdate(){
+    componentDidUpdate = (prevProps) => {
+        console.log(`cwrp:\n ${this.props.level}, ${prevProps.level}`)
+        if(this.props.level != prevProps.level){
+            console.log("will update board here");
+            const updated_board = [...loadBoard(this.props.level)];
+            this.setState({board: updated_board});
+        }
     }
 
     handleCellClick = (cellRow, cellCol) => {
 
-        console.log(cellRow, cellCol)
         const highlightedCell = {...this.state.highlightedCell};
         highlightedCell["row"] = cellRow;
-        highlightedCell['col'] = cellCol;
+        highlightedCell["col"] = cellCol;
         this.setState({highlightedCell: highlightedCell});
     }
 
     updateHighlightedCell = (cellRow, cellCol, value) => {
 
         if(cellRow === undefined|| cellCol === undefined){
-            console.log("There is no cell highlighted");
+            console.log("board component - There is no cell highlighted");
             return;
         }
 
@@ -43,6 +50,15 @@ class Board extends Component {
         }
 
         return cells;
+    }
+
+    evaluateSolution(){
+
+        console.log(`board component; level before submitting board - ${this.props.level}`)
+        console.log(`board component; board -:\n ${this.state.board}`)
+        console.log("board component - submitting board (expecting level and score change)...");
+        this.props.goToNextLevel();
+        // this.props.goToNextLevel();
     }
 
     render() {
@@ -81,10 +97,9 @@ class Board extends Component {
                     <button onClick={() => this.updateHighlightedCell(this.state.highlightedCell.row, this.state.highlightedCell.col, 8)}>8</button>
                     <button onClick={() => this.updateHighlightedCell(this.state.highlightedCell.row, this.state.highlightedCell.col, 9)}>9</button>
                 </div>
+                <div><button onClick={ () => this.evaluateSolution()}>Submit!</button></div>
         </div>
     }
 }
 
-
- 
 export default Board;

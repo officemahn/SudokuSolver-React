@@ -50,5 +50,8 @@ const boards =
 ]
 
 export function loadBoard(level){
-    return boards[level]
+    if(level > 5){
+        return []
+    }
+    return boards[level];
 }

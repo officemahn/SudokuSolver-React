@@ -1,31 +1,31 @@
 export class Game{
 
     constructor(level, score){
-        this.level = level
-        this.score = score
+        this.game_level = level
+        this.game_score = score
     }
 
-    set level(value){
-        this._level = value
+    set level(level){
+        this.game_level = level
     }
 
-    set score(value){
-        this._score = value
+    set score(score){
+        this.game_score = score
     }
 
     get level(){
-        return this._level
+        return this.game_level
     }
 
     get score(){
-        return this._score
+        return this.game_score
     }
 
     goToNextLevel(){
-        this._level ++
+        this.level ++
     }
 
     updateScore(merit){
-        this._score = this._score + merit
+        this.score = this.score + merit
     }
 }
