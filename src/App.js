@@ -1,43 +1,32 @@
-import './App.css';
-import Board from './components/boardComponent';
-import React, {useState } from 'react';
+import React, {useEffect} from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import About from './components/about';
+import Home from './components/home';
+import Rules from './components/rules';
+import NavBar from './components/navbar';
+import Game from './components/game';
 import LeaderBoard from './components/leaderboardComponent';
 
-function App() {
 
-  const maxLevel = 4;
-
-  const [level, setLevel] = useState(1);
-  const [score, setScore] = useState(0);
-
-  const goToNextLevel = () => {
-    let new_level = level + 1;
-    setLevel(new_level);
-  }
-
-  const saveScore = () => {
-
-    console.log(`inserting score: ${score} in DB`);
-  }
-
-  const updateScore = (merit) => {
-    let new_score = score + merit;
-
-    setScore(new_score);
-    saveScore(score);
-  }
+const App = () => {
+  useEffect(() => {
+    document.title = "Sudoku Game";  
+  }, []);
 
   return (
-
-    <div>
-      {
-      (level < maxLevel)
-      ? <div><Board level={level} goToNextLevel={goToNextLevel}/></div>
-      : <div><LeaderBoard/></div>
-      }
-    </div>
-
+    <Router>
+      <div className="app">
+        <NavBar/>
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/About" element={<About />} />
+          <Route exact path="/Rules" element={<Rules />} />
+          <Route exact path="/Game" element={<Game/>} />
+          <Route exact path="/LeaderBoard" element={<LeaderBoard/>} />
+        </Routes>
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;
