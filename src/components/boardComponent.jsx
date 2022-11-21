@@ -2,23 +2,25 @@ import React, { Component } from 'react';
 import {loadBoard} from "../services/boardService"
 import Cell from './cellComponent';
 class Board extends Component {
-    
-    constructor(props){
-        super(props);
-    }
 
     state = {
-        board: [...loadBoard(this.props.level)],
+        board: [...loadBoard(this.props.level-1)],
+        board_with_solution: [...loadBoard(this.props.level-1)],
         hints: [],
         highlightedCell: {row: undefined, col: undefined}
     }
 
     componentDidUpdate = (prevProps) => {
-        console.log(`cwrp:\n ${this.props.level}, ${prevProps.level}`)
-        if(this.props.level != prevProps.level){
+        
+        if(this.props.level !== prevProps.level){
+
             console.log("will update board here");
-            const updated_board = [...loadBoard(this.props.level)];
+
+            const updated_board = [...loadBoard(this.props.level-1)];
+            const updated_board_with_solution = [...loadBoard(this.props.level-1)];
+
             this.setState({board: updated_board});
+            this.setState({board_with_solution: updated_board_with_solution});
         }
     }
 
@@ -57,8 +59,11 @@ class Board extends Component {
         console.log(`board component; level before submitting board - ${this.props.level}`)
         console.log(`board component; board -:\n ${this.state.board}`)
         console.log("board component - submitting board (expecting level and score change)...");
-        this.props.goToNextLevel();
-        // this.props.goToNextLevel();
+        if(this.state.board.toString() === this.state.board_with_solution.toString()){
+            this.props.goToNextLevel();
+        }else{
+            console.log("Solution is wrong");
+        }
     }
 
     render() {

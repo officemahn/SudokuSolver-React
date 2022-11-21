@@ -1,4 +1,3 @@
-import {Game} from "../entities/game"
 const boards = 
 [
     [    

@@ -1,20 +1,18 @@
 import './App.css';
 import Board from './components/boardComponent';
-import React, { useEffect, useState } from 'react';
+import React, {useState } from 'react';
+import LeaderBoard from './components/leaderboardComponent';
 
 function App() {
+
+  const maxLevel = 4;
 
   const [level, setLevel] = useState(1);
   const [score, setScore] = useState(0);
 
-  useEffect(() => {
-    console.log(`app.js - level: ${level}`)
-  })
-
   const goToNextLevel = () => {
     let new_level = level + 1;
     setLevel(new_level);
-    console.log("app.js - updated level");
   }
 
   const saveScore = () => {
@@ -30,8 +28,13 @@ function App() {
   }
 
   return (
+
     <div>
-      <div><Board level={level} goToNextLevel={goToNextLevel}/></div>
+      {
+      (level < maxLevel)
+      ? <div><Board level={level} goToNextLevel={goToNextLevel}/></div>
+      : <div><LeaderBoard/></div>
+      }
     </div>
 
   );
