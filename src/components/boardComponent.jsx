@@ -3,11 +3,20 @@ import {loadBoard} from "../services/boardService"
 import Cell from './cellComponent';
 class Board extends Component {
 
+    className = "board";
+
     state = {
         board: [...loadBoard(this.props.level-1)],
         board_with_solution: [...loadBoard(this.props.level-1)],
         hints: [],
         highlightedCell: {row: undefined, col: undefined}
+    }
+
+    componentWillUnmount(){
+        this.setState({board: []})
+        this.setState({board_with_solution: []})
+        this.setState({hints: []})
+        this.setState({highlightedCell: {row: undefined, col: undefined}})
     }
 
     componentDidUpdate = (prevProps) => {
@@ -66,6 +75,17 @@ class Board extends Component {
         }
     }
 
+    // getHint(){
+
+    //     let board = this.state.board[this.props.level];
+    //     let board_soln = this.state.board_with_solution[this.props.level];
+
+    //     if()
+    //     // get random row and coln
+    //     // check if row and col is in hints array. If it is, try again
+    //     // add hint to state, 
+    // }
+
     render() {
         return <div>
                 <div>
@@ -102,6 +122,7 @@ class Board extends Component {
                     <button onClick={() => this.updateHighlightedCell(this.state.highlightedCell.row, this.state.highlightedCell.col, 8)}>8</button>
                     <button onClick={() => this.updateHighlightedCell(this.state.highlightedCell.row, this.state.highlightedCell.col, 9)}>9</button>
                 </div>
+                {/* <div><button onClick={ () => this.getHint()}>Hint!</button></div> */}
                 <div><button onClick={ () => this.evaluateSolution()}>Submit!</button></div>
         </div>
     }
