@@ -94,24 +94,24 @@ class Board extends Component {
                     <colgroup align="center" span="3"/>
                     <colgroup align="center" span="3"/>
                     <colgroup align="center" span="3"/>
-                    <tbody>
+                    <tbody className="cellInput">
                         <tr>{this.getCell(0)}</tr>
                         <tr>{this.getCell(1)}</tr>
                         <tr>{this.getCell(2)}</tr>  
                     </tbody>
-                    <tbody>
+                    <tbody className="cellInput">
                         <tr>{this.getCell(3)}</tr>
                         <tr>{this.getCell(4)}</tr>
                         <tr>{this.getCell(5)}</tr>              
                     </tbody>     
-                    <tbody>
+                    <tbody className="cellInput">
                         <tr>{this.getCell(6)}</tr>
                         <tr>{this.getCell(7)}</tr>
                         <tr>{this.getCell(8)}</tr>              
                     </tbody>
                     </table>
                 </div>
-                <div>
+                <div className="game-button">
                     <button onClick={() => this.updateHighlightedCell(this.state.highlightedCell.row, this.state.highlightedCell.col, 1)}>1</button>
                     <button onClick={() => this.updateHighlightedCell(this.state.highlightedCell.row, this.state.highlightedCell.col, 2)}>2</button>
                     <button onClick={() => this.updateHighlightedCell(this.state.highlightedCell.row, this.state.highlightedCell.col, 3)}>3</button>
