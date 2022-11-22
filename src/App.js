@@ -1,28 +1,28 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import About from './components/about';
 import Home from './components/home';
 import Rules from './components/rules';
 import NavBar from './components/navbar';
 import Game from './components/game';
-import LeaderBoard from './components/leaderboardComponent';
+import LeaderBoard from './components/LeaderboardComponent';
 
 
 const App = () => {
   useEffect(() => {
-    document.title = "Sudoku Game";  
+    document.title = "Sudoku Game";
   }, []);
 
   return (
     <Router>
       <div className="app">
-        <NavBar/>
+        <NavBar />
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/About" element={<About />} />
           <Route exact path="/Rules" element={<Rules />} />
-          <Route exact path="/Game" element={<Game/>} />
-          <Route exact path="/LeaderBoard" element={<LeaderBoard/>} />
+          <Route exact path="/Game" element={<Game />} />
+          <Route exact path="/LeaderBoard" element={<LeaderBoard />} />
         </Routes>
       </div>
     </Router>

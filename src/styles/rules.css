@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Press+Start+2P&family=Roboto:ital,wght@0,400;0,700;0,900;1,400&display=swap');
+
+
+.rules{
+  color: white;
+  font-family: 'Press Start 2P', cursive;
+}
+
+
+.rules-list{
+font-size: 1.5rem;
+line-height: 4;
+text-align: left;
+}
+
+.rulesTitle{
+text-align: center;
+}

@@ -1,30 +1,40 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react'
+import { Amplify, API, graphqlOperation } from 'aws-amplify'
+import awsconfig from '../aws-exports'
+import { listUsers } from '../graphql/queries'
+import Table from './Table'
+
+Amplify.configure(awsconfig)
 
 
-class LeaderBoard extends Component {
 
-    getLeaderboardFromDB(){
-        return []
-    }
-    arrayOfObjects = [
-        { coffee: "Americano", size: "Medium" },
-        { coffee: "Espresso", size: "Single" },
-    ];
-    render() {
-        return <div>
-                <div>
-                    <table border="2"
-                            summary="leaderboard">
-                    <tbody>
-                        <tr><td>hello, this is the leaderboard</td></tr>
-                        {/* {this.arrayOfObjects.map(({name, score}) => (
-                            <tr key={name}><td key={name}>{name}</td><td key={name}>{score}</td></tr>
-                        ))} */}
-                    </tbody>
-                    </table>
-                </div>
-        </div>
-    }
+function LeaderboardComponent() {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  const fetchUsers = async () => {
+    try {
+      const userData = await API.graphql(graphqlOperation(listUsers));
+      const userList = userData.data.listUsers.items;
+      setUsers(userList);
+    } catch (error) {
+      console.log('error on fetching users', error);
+    } 
+  }
+
+const column = [
+    {heading: 'NAME', value: 'name'},
+    {heading: 'SCORE', value: 'score'},
+    {heading: 'DATE', value: 'createdAt'}
+]
+  return (
+    <div>
+        <Table data={users} column={column}/>
+    </div>
+  )
 }
 
-export default LeaderBoard;
+export default LeaderboardComponent
