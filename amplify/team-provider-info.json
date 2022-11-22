@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-sudokusolverreact-dev-121212-authRole",
+      "UnauthRoleArn": "arn:aws:iam::620058124565:role/amplify-sudokusolverreact-dev-121212-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::620058124565:role/amplify-sudokusolverreact-dev-121212-authRole",
+      "Region": "us-west-2",
+      "DeploymentBucketName": "amplify-sudokusolverreact-dev-121212-deployment",
+      "UnauthRoleName": "amplify-sudokusolverreact-dev-121212-unauthRole",
+      "StackName": "amplify-sudokusolverreact-dev-121212",
+      "StackId": "arn:aws:cloudformation:us-west-2:620058124565:stack/amplify-sudokusolverreact-dev-121212/685d6a60-69d0-11ed-b438-0af89d080221",
+      "AmplifyAppId": "d1y27wr5a8yeb9"
+    },
+    "categories": {
+      "api": {
+        "sudokusolverreact": {}
+      }
+    }
+  }
+}

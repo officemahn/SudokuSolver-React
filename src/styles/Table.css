@@ -1,0 +1,18 @@
+h1{
+  text-align: center;
+}
+
+.scoreboard {
+  background-color: blue;
+  border-collapse: collapse;
+  max-width: 900px;
+  width: 100%;
+  margin: 2rem auto;
+}
+
+.scoreboard th, .scoreboard td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+
+}

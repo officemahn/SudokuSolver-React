@@ -1,6 +1,6 @@
-import React, {useState } from 'react';
+import React, { useState } from 'react';
 import Board from './boardComponent';
-import LeaderBoard from './leaderboardComponent';
+import LeaderBoard from './LeaderboardComponent';
 import "../styles/game.css"
 
 function Game() {
@@ -31,9 +31,9 @@ function Game() {
 
     <div>
       {
-      (level < maxLevel)
-      ? <div><Board level={level} goToNextLevel={goToNextLevel}/></div>
-      : <div><LeaderBoard/></div>
+        (level < maxLevel)
+          ? <div><Board level={level} goToNextLevel={goToNextLevel} /></div>
+          : <div><LeaderBoard /></div>
       }
     </div>
 
