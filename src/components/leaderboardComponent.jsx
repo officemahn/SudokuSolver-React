@@ -4,6 +4,7 @@ import awsconfig from '../aws-exports'
 import { listUsers } from '../graphql/queries'
 import Table from './Table'
 
+
 Amplify.configure(awsconfig)
 
 
