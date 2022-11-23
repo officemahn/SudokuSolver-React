@@ -1,5 +1,5 @@
 import Board from './boardComponent';
-import LeaderBoard from './LeaderboardComponent';
+//import LeaderBoard from './LeaderboardComponent';
 import "../styles/game.css"
 import congrats from "../images/celebration.gif"
 import React, { useState, useEffect } from 'react'
@@ -7,40 +7,46 @@ import { Amplify, API, graphqlOperation } from 'aws-amplify'
 import awsconfig from '../aws-exports'
 import { createUsers } from '../graphql/mutations';
 import { v4 as uuidv4  } from 'uuid';
-import {input} from './home'
+import {input} from './home';
+import { useNavigate } from 'react-router-dom';
 Amplify.configure(awsconfig)
 
 
-function winPopUp(){
-  return(
-    <div class="popup" id="popup">
-      <img src={congrats} alt="" />
-      <h2>Congratulations</h2>
-      <p>You made it to the hall of fame</p>
-      <button onClick={closePopup}>Okay</button>
-    </div>
-  )
-}
-
-// function losePopUp(){
-//   return(
-//     <div class="popup" id="popup">
-//       <img src={congrats} alt="" />
-//       <h2>Too Bad</h2>
-//       <p>You could not make it to the hall of fame</p>
-//       <button onClick={closePopup}>Okay</button>
-//     </div>
-//   )
-// }
-
-function closePopup(){
-  document.getElementById("popup").style.display = 'none';
-}
-
-const winMessage = winPopUp();
-// const loseMessage = losePopUp();
-
 function Game() {
+  const navigate = useNavigate();
+  const toLeaderBoard = () => {
+      navigate('/LeaderBoard', {replace: true});
+  };
+  function winPopUp(){
+    return(
+      <div class="popup" id="popup">
+        <img src={congrats} alt="" />
+        <h2>Congratulations</h2>
+        <p>You made it to the hall of fame</p>
+        <button onClick={toLeaderBoard}>Okay</button>
+      </div>
+    )
+  }
+  
+  // function losePopUp(){
+  //   return(
+  //     <div class="popup" id="popup">
+  //       <img src={congrats} alt="" />
+  //       <h2>Too Bad</h2>
+  //       <p>You could not make it to the hall of fame</p>
+  //       <button onClick={closePopup}>Okay</button>
+  //     </div>
+  //   )
+  // }
+  
+  function closePopup(){
+    document.getElementById("popup").style.display = 'none';
+  }
+  
+  const winMessage = winPopUp();
+  // const loseMessage = losePopUp();
+  
+
   useEffect(() => {
     addUser();
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -82,14 +88,13 @@ function Game() {
 
   return (
 
-    <div>
+    <div className="game-pg">
       {
         (level < maxLevel)
           ? <div><Board level={level} goToNextLevel={goToNextLevel} /></div>
           : <div>
               <div>{winMessage}</div>
               {/* <div>{addUser}</div> */}
-              <LeaderBoard />
             </div>
       }
     </div>
