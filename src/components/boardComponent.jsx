@@ -89,7 +89,7 @@ class Board extends Component {
     render() {
         return <div>
                 <div>
-                    <table border="2" frame="hsides" rules="groups"
+                    <table className="SudokuBoard" border="2" frame="hsides" rules="groups"
                             summary="sudoku board">
                     <colgroup align="center" span="3"/>
                     <colgroup align="center" span="3"/>
@@ -123,7 +123,7 @@ class Board extends Component {
                     <button onClick={() => this.updateHighlightedCell(this.state.highlightedCell.row, this.state.highlightedCell.col, 9)}>9</button>
                 </div>
                 {/* <div><button onClick={ () => this.getHint()}>Hint!</button></div> */}
-                <div><button onClick={ () => this.evaluateSolution()}>Submit!</button></div>
+                <div><button className="game-submit-btn" onClick={ () => this.evaluateSolution()}>Submit!</button></div>
         </div>
     }
 }
