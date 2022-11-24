@@ -27,6 +27,10 @@
   border: 1px solid black;
 }
 
+.ansCell{
+  background-color: darkgrey;
+}
+
 .SudokuBoard{
   border-collapse: collapse;
   border: 5px solid  #C0C0C0;

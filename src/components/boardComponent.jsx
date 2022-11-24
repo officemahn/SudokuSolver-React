@@ -1,63 +1,72 @@
 import React, { Component } from 'react';
-import {loadBoard} from "../services/boardService"
+import {loadBoard, loadSolution} from "../services/boardService"
 import Cell from './cellComponent';
 class Board extends Component {
 
-    className = "board";
-
     state = {
-        board: [...loadBoard(this.props.level-1)],
-        board_with_solution: [...loadBoard(this.props.level-1)],
-        hints: [],
-        highlightedCell: {row: undefined, col: undefined}
+        board: loadBoard(this.props.level),
+        highlightedCell: {row: undefined, col: undefined},
+        num_hints: 0
     }
 
     componentWillUnmount(){
+
         this.setState({board: []})
-        this.setState({board_with_solution: []})
-        this.setState({hints: []})
         this.setState({highlightedCell: {row: undefined, col: undefined}})
+        this.setState({num_hints: 0})
     }
 
     componentDidUpdate = (prevProps) => {
         
         if(this.props.level !== prevProps.level){
 
-            console.log("will update board here");
-
-            const updated_board = [...loadBoard(this.props.level-1)];
-            const updated_board_with_solution = [...loadBoard(this.props.level-1)];
-
-            this.setState({board: updated_board});
-            this.setState({board_with_solution: updated_board_with_solution});
+            this.setState({board: loadBoard(this.props.level)});
+            this.setState({num_hints: 0})
+            this.setState({highlightedCell: {row: undefined, col: undefined}})
         }
     }
 
     handleCellClick = (cellRow, cellCol) => {
+        console.log(cellRow, cellCol);
 
+        {/*only save row-coloumn info of cells that are blank at the start of the game.*/}
+        const board = loadBoard(this.props.level);
+        if(board[cellRow][cellCol].includes("ans")){ 
+            this.updateHighlightedCell(cellRow, cellCol);
+        }else{
+            this.updateHighlightedCell(undefined, undefined);
+        }
+    }
+
+    updateHighlightedCell(cellRow, cellCol){
+
+        console.log(cellRow, cellCol);
         const highlightedCell = {...this.state.highlightedCell};
         highlightedCell["row"] = cellRow;
         highlightedCell["col"] = cellCol;
         this.setState({highlightedCell: highlightedCell});
+        console.log(this.state.highlightedCell);
+
     }
 
-    updateHighlightedCell = (cellRow, cellCol, value) => {
+    updateCellValue = (cellRow, cellCol, value) => {
 
         if(cellRow === undefined|| cellCol === undefined){
             console.log("board component - There is no cell highlighted");
             return;
         }
 
+        {/*Update board with new cell value*/}
         const updated_board = [...this.state.board];
         updated_board[cellRow][cellCol] = value;
         this.setState({board: updated_board});
-        console.log(this.state.board);
     }
 
     getCell(row){
         var cells = [];
+        var board = loadBoard(this.props.level);
         for(let col = 0; col < 9; col++){
-            cells.push(<Cell onCellClick={this.handleCellClick} row={row} col={col} key={`${row}-${col}`} board={this.state.board}/>);
+            cells.push(<Cell className={board[row][col].includes("ans")? "ansCell": null} onCellClick={this.handleCellClick} row={row} col={col} key={`${row}-${col}`} board={this.state.board}/>);
         }
 
         return cells;
@@ -65,26 +74,29 @@ class Board extends Component {
 
     evaluateSolution(){
 
-        console.log(`board component; level before submitting board - ${this.props.level}`)
-        console.log(`board component; board -:\n ${this.state.board}`)
-        console.log("board component - submitting board (expecting level and score change)...");
-        if(this.state.board.toString() === this.state.board_with_solution.toString()){
+        if(this.state.board.toString() === loadBoard(this.props.level).toString()){
             this.props.goToNextLevel();
         }else{
             console.log("Solution is wrong");
         }
     }
 
-    // getHint(){
+    getHint(){
 
-    //     let board = this.state.board[this.props.level];
-    //     let board_soln = this.state.board_with_solution[this.props.level];
+        var board = loadBoard(this.props.level);
+        var cellRow = this.state.highlightedCell.row;
+        var cellCol = this.state.highlightedCell.col;
 
-    //     if()
-    //     // get random row and coln
-    //     // check if row and col is in hints array. If it is, try again
-    //     // add hint to state, 
-    // }
+        if(this.state.num_hints < 3){
+            if(cellRow === undefined|| cellCol === undefined){
+                console.log("board component - There is no cell highlighted");
+                return;
+            }else{
+                this.updateCellValue(cellRow, cellCol, (board[cellRow][[cellCol]]).split("ans_")[1]);
+                this.setState({num_hints: this.state.num_hints+1});
+            }
+        }
+    }
 
     render() {
         return <div>
@@ -112,17 +124,18 @@ class Board extends Component {
                     </table>
                 </div>
                 <div className="game-button">
-                    <button onClick={() => this.updateHighlightedCell(this.state.highlightedCell.row, this.state.highlightedCell.col, 1)}>1</button>
-                    <button onClick={() => this.updateHighlightedCell(this.state.highlightedCell.row, this.state.highlightedCell.col, 2)}>2</button>
-                    <button onClick={() => this.updateHighlightedCell(this.state.highlightedCell.row, this.state.highlightedCell.col, 3)}>3</button>
-                    <button onClick={() => this.updateHighlightedCell(this.state.highlightedCell.row, this.state.highlightedCell.col, 4)}>4</button>
-                    <button onClick={() => this.updateHighlightedCell(this.state.highlightedCell.row, this.state.highlightedCell.col, 5)}>5</button>
-                    <button onClick={() => this.updateHighlightedCell(this.state.highlightedCell.row, this.state.highlightedCell.col, 6)}>6</button>
-                    <button onClick={() => this.updateHighlightedCell(this.state.highlightedCell.row, this.state.highlightedCell.col, 7)}>7</button>
-                    <button onClick={() => this.updateHighlightedCell(this.state.highlightedCell.row, this.state.highlightedCell.col, 8)}>8</button>
-                    <button onClick={() => this.updateHighlightedCell(this.state.highlightedCell.row, this.state.highlightedCell.col, 9)}>9</button>
+                    <button onClick={() => this.updateCellValue(this.state.highlightedCell.row, this.state.highlightedCell.col, "1")}>1</button>
+                    <button onClick={() => this.updateCellValue(this.state.highlightedCell.row, this.state.highlightedCell.col, "2")}>2</button>
+                    <button onClick={() => this.updateCellValue(this.state.highlightedCell.row, this.state.highlightedCell.col, "3")}>3</button>
+                    <button onClick={() => this.updateCellValue(this.state.highlightedCell.row, this.state.highlightedCell.col, "4")}>4</button>
+                    <button onClick={() => this.updateCellValue(this.state.highlightedCell.row, this.state.highlightedCell.col, "5")}>5</button>
+                    <button onClick={() => this.updateCellValue(this.state.highlightedCell.row, this.state.highlightedCell.col, "6")}>6</button>
+                    <button onClick={() => this.updateCellValue(this.state.highlightedCell.row, this.state.highlightedCell.col, "7")}>7</button>
+                    <button onClick={() => this.updateCellValue(this.state.highlightedCell.row, this.state.highlightedCell.col, "8")}>8</button>
+                    <button onClick={() => this.updateCellValue(this.state.highlightedCell.row, this.state.highlightedCell.col, "9")}>9</button>
                 </div>
-                {/* <div><button onClick={ () => this.getHint()}>Hint!</button></div> */}
+                <div><button 
+                className={`game-submit-btn ${this.state.num_hints === 3? "disabled": null}`} onClick={ () => this.getHint()}>Hint! {`[${3 - this.state.num_hints}]`}</button></div>
                 <div><button className="game-submit-btn" onClick={ () => this.evaluateSolution()}>Submit!</button></div>
         </div>
     }

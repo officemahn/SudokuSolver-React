@@ -5,7 +5,7 @@ import Home from './components/home';
 import Rules from './components/rules';
 import NavBar from './components/navbar';
 import Game from './components/game';
-import LeaderBoard from './components/LeaderboardComponent';
+import LeaderBoard from './components/leaderboardComponent';
 
 
 const App = () => {

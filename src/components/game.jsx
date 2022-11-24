@@ -17,6 +17,7 @@ function Game() {
   const toLeaderBoard = () => {
       navigate('/LeaderBoard', {replace: true});
   };
+  
   function winPopUp(){
     return(
       <div class="popup" id="popup">
