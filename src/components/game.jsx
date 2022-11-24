@@ -55,7 +55,7 @@ function Game() {
   const createNewUser={
     id: uuidv4(),
     name: input,
-    score: 5000
+    score: 0
   }
   const addUser = async () => {
     try {
@@ -65,7 +65,7 @@ function Game() {
     } 
   }
 
-  const maxLevel = 4;
+  const maxLevel = 3;
 
   const [level, setLevel] = useState(1);
   const [score, setScore] = useState(0);
@@ -75,8 +75,7 @@ function Game() {
     setLevel(new_level);
   }
 
-  const saveScore = () => {
-
+  const saveScore = (score) => {
     console.log(`inserting score: ${score} in DB`);
   }
 
@@ -91,15 +90,17 @@ function Game() {
 
     <div className="game-pg">
       {
-        (level < maxLevel)
-          ? <div><Board level={level} goToNextLevel={goToNextLevel} /></div>
+        (level <= maxLevel)
+          ? <div>
+            <h3 style={{color: "white"}}>LEVEL: {`${level}/3`} SCORE: {score} </h3>
+              <Board level={level} updateScore={updateScore} goToNextLevel={goToNextLevel} />
+            </div>
           : <div>
               <div>{winMessage}</div>
               {/* <div>{addUser}</div> */}
             </div>
       }
     </div>
-
   );
 }
 

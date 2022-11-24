@@ -31,8 +31,8 @@
   background-color: darkgrey;
 }
 
-.hint{
-  border: cornflowerblue;
+.hint {
+  background: lightskyblue;
 }
 
 .SudokuBoard{

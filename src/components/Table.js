@@ -8,11 +8,11 @@ const Table = ({data, column}) => {
       <table className="scoreboard">
         <thead>
           <tr>
-            {column.map((item, index) =><TableHeadItem item={item}/>)}
+            {column.map((item, index) =><TableHeadItem item={item} key={item}/>)}
           </tr>
         </thead>
         <tbody>
-          {data.map((item, index)=> <TableRow item={item} column={column}/>)}
+          {data.map((item, index)=> <TableRow item={item} column={column} key={item}/>)}
         </tbody>
       </table>
     </>

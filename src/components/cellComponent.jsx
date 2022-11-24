@@ -14,7 +14,7 @@ class Cell extends Component {
     }
 
     render() { 
-        return (<td id={`cell${this.props.row}-${this.props.col}`} className={this.props.className} onClick={() => this.props.onCellClick(this.props.row, this.props.col)}>{(this.props.board[this.props.row][this.props.col]).includes("ans")? "": this.props.board[this.props.row][this.props.col]}</td>);
+        return (<td className={this.props.className} onClick={() => this.props.onCellClick(this.props.row, this.props.col)}>{(this.props.board[this.props.row][this.props.col]).includes("ans")? "": this.props.board[this.props.row][this.props.col]}</td>);
     }
 }
  
