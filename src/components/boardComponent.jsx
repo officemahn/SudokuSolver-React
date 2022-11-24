@@ -94,6 +94,8 @@ class Board extends Component {
             }else{
                 this.updateCellValue(cellRow, cellCol, (board[cellRow][[cellCol]]).split("ans_")[1]);
                 this.setState({num_hints: this.state.num_hints+1});
+                document.getElementById(`cell${cellRow}-${cellCol}`).classList.add("hint");
+                console.log(document.getElementById(`cell${cellRow-cellCol}`));
             }
         }
     }

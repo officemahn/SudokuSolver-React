@@ -31,6 +31,10 @@
   background-color: darkgrey;
 }
 
+.hint{
+  border: cornflowerblue;
+}
+
 .SudokuBoard{
   border-collapse: collapse;
   border: 5px solid  #C0C0C0;
